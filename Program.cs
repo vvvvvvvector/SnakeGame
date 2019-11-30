@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace Snake
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             CursorVisible = false;
             WindowWidth = 40;
@@ -77,7 +74,15 @@ namespace Snake
             }
             SetCursorPosition(WindowWidth / 2 - 9, WindowHeight / 2);
             Write($"Game over, score: {score - 2}");
-            ReadKey();
+            SetCursorPosition(WindowWidth / 2 - 14, WindowHeight / 2 + 1);
+            Write($"Press R button to restart game");
+            SetCursorPosition(WindowWidth / 2 - 14, WindowHeight / 2 + 2);
+            Write($"or press another button to quit");
+            ConsoleKeyInfo key = ReadKey(true);
+            if (key.Key == ConsoleKey.R)
+            {
+                Main();
+            }
         }
         static void Read(Pixel p)
         {
@@ -122,6 +127,7 @@ namespace Snake
         {
             for (int i = 0; i < WindowHeight; i++)
             {
+                ForegroundColor = ConsoleColor.White;
                 SetCursorPosition(0, i);
                 Write("1");
                 SetCursorPosition(WindowWidth - 1, i);
@@ -129,6 +135,7 @@ namespace Snake
             }
             for (int i = 0; i < WindowWidth; i++)
             {
+                ForegroundColor = ConsoleColor.White;
                 SetCursorPosition(i, 0);
                 Write("1");
                 SetCursorPosition(i, WindowHeight - 1);
