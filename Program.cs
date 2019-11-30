@@ -39,20 +39,20 @@ namespace Snake
 
                 for (int i = 0; i < body.Count - 1; i++)
                 {
-                    body[i].DrawPixel(body[i]);
+                    Pixel.DrawPixel(body[i]);
                     if (head.xPos == body[i].xPos && head.yPos == body[i].yPos)
                     {
                         gameover = false;
                     }
                 }
                 if (gameover == false) break;
-                head.Update(head);
+                Pixel.Update(head);
                 Thread.Sleep(150);
                 ClearConsole();
-                head.DrawPixel(head);
-                food.DrawPixel(food);
+                Pixel.DrawPixel(head);
+                Pixel.DrawPixel(food);
                 body.Add(new Pixel(head.xPos, head.yPos, ConsoleColor.Green));
-                read(head);
+                Read(head);
                 if (body.Count > score)
                 {
                     body.RemoveAt(0);
@@ -62,7 +62,7 @@ namespace Snake
             Write($"Game over, score: {score}");
             ReadKey();
         }
-        static void read(Pixel p)
+        static void Read(Pixel p)
         {
             if (KeyAvailable)
             {
