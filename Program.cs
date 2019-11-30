@@ -15,15 +15,17 @@ namespace Snake
             CursorVisible = false;
             WindowWidth = 40;
             WindowHeight = 20;
-            bool gameover = true;
-            int score = 3;
-            Random random = new Random();
 
-            DrawBorder();
+            bool gameover = true;
+            int score = 2;
+            int speed = 200;
+            Random random = new Random();
 
             Pixel head = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
             Pixel food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
             List<Pixel> body = new List<Pixel>();
+
+            DrawBorder();
 
             while (gameover)
             {
@@ -33,6 +35,10 @@ namespace Snake
                 }
                 if (head.xPos == food.xPos && head.yPos == food.yPos)
                 {
+                    if (score % 4 == 0)
+                    {
+                        speed -= 15;
+                    }
                     score++;
                     food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
                 }
@@ -45,21 +51,24 @@ namespace Snake
                         gameover = false;
                     }
                 }
-                if (gameover == false) break;
+                if (gameover == false)
+                {
+                    break;
+                }
                 Pixel.Update(head);
-                Thread.Sleep(150);
+                Thread.Sleep(speed);
                 ClearConsole();
                 Pixel.DrawPixel(head);
                 Pixel.DrawPixel(food);
                 body.Add(new Pixel(head.xPos, head.yPos, ConsoleColor.Green));
                 Read(head);
-                if (body.Count > score)
+                if (body.Count - 1 > score)
                 {
                     body.RemoveAt(0);
                 }
             }
             SetCursorPosition(WindowWidth / 2 - 9, WindowHeight / 2);
-            Write($"Game over, score: {score}");
+            Write($"Game over, score: {score - 2}");
             ReadKey();
         }
         static void Read(Pixel p)
