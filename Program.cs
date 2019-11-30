@@ -18,7 +18,7 @@ namespace Snake
 
             bool gameover = true;
             int score = 2;
-            int speed = 200;
+            int speed = 180;
             Random random = new Random();
 
             Pixel head = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
@@ -56,7 +56,15 @@ namespace Snake
                     break;
                 }
                 Pixel.Update(head);
-                Thread.Sleep(speed);
+                DateTime t1 = DateTime.Now;
+                while (true)
+                {
+                    DateTime t2 = DateTime.Now;
+                    if (t2.Subtract(t1).TotalMilliseconds > speed)
+                    {
+                        break;
+                    }
+                }
                 ClearConsole();
                 Pixel.DrawPixel(head);
                 Pixel.DrawPixel(food);
