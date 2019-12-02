@@ -42,7 +42,7 @@ namespace Snake
 
                 for (int i = 0; i < body.Count - 1; i++)
                 {
-                    body[i].DrawPixel();
+                    Pixel.DrawPixel(body[i]);
                     if (head.xPos == body[i].xPos && head.yPos == body[i].yPos)
                     {
                         gameover = false;
@@ -52,7 +52,7 @@ namespace Snake
                 {
                     break;
                 }
-                head.Update();
+                Pixel.Update(head);
                 DateTime t1 = DateTime.Now;
                 while (true)
                 {
@@ -63,8 +63,8 @@ namespace Snake
                     }
                 }
                 ClearConsole();
-                head.DrawPixel();
-                food.DrawPixel();
+                Pixel.DrawPixel(head);
+                Pixel.DrawPixel(food);
                 body.Add(new Pixel(head.xPos, head.yPos, ConsoleColor.Green));
                 Read(head);
                 if (body.Count - 1 > score)

@@ -15,16 +15,16 @@ namespace Snake
             yPos = y;
             PixelColor = color;
         }
-        public void DrawPixel()
+        public static void DrawPixel(Pixel pixel)
         {
-            Console.SetCursorPosition(xPos, yPos);
-            Console.ForegroundColor = PixelColor;
+            Console.SetCursorPosition(pixel.xPos, pixel.yPos);
+            Console.ForegroundColor = pixel.PixelColor;
             Console.Write("*");
         }
-        public void Update()
+        public static void Update(Pixel pixel)
         {
-            xPos += xSpeed;
-            yPos += ySpeed;
+            pixel.xPos += pixel.xSpeed;
+            pixel.yPos += pixel.ySpeed;
         }
         public void direction(int x, int y)
         {
