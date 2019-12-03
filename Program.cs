@@ -18,19 +18,19 @@ namespace Snake
             var speed = 180;
             var random = new Random();
 
-            var head = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
+            var snakeHead = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
             var food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
-            var body = new List<Pixel>();
+            var snakeBody = new List<Pixel>();
 
             DrawBorder();
 
             while (gameover)
             {
-                if (head.xPos == WindowWidth - 1 || head.xPos == 0 || head.yPos == WindowHeight - 1 || head.yPos == 0)
+                if (snakeHead.xCoordinate == WindowWidth - 1 || snakeHead.xCoordinate == 0 || snakeHead.yCoordinate == WindowHeight - 1 || snakeHead.yCoordinate == 0)
                 {
                     gameover = false;
                 }
-                if (head.xPos == food.xPos && head.yPos == food.yPos)
+                if (snakeHead.xCoordinate == food.xCoordinate && snakeHead.yCoordinate == food.yCoordinate)
                 {
                     if (score % 4 == 0)
                     {
@@ -40,10 +40,10 @@ namespace Snake
                     food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
                 }
 
-                for (int i = 0; i < body.Count - 1; i++)
+                for (int i = 0; i < snakeBody.Count - 1; i++)
                 {
-                    body[i].DrawPixel();
-                    if (head.xPos == body[i].xPos && head.yPos == body[i].yPos)
+                    snakeBody[i].DrawPixel();
+                    if (snakeHead.xCoordinate == snakeBody[i].xCoordinate && snakeHead.yCoordinate == snakeBody[i].yCoordinate)
                     {
                         gameover = false;
                     }
@@ -52,7 +52,7 @@ namespace Snake
                 {
                     break;
                 }
-                head.Update();
+                snakeHead.Update();
                 DateTime t1 = DateTime.Now;
                 while (true)
                 {
@@ -63,13 +63,13 @@ namespace Snake
                     }
                 }
                 ClearConsole();
-                head.DrawPixel();
+                snakeHead.DrawPixel();
                 food.DrawPixel();
-                body.Add(new Pixel(head.xPos, head.yPos, ConsoleColor.Green));
-                Read(head);
-                if (body.Count - 1 > score)
+                snakeBody.Add(new Pixel(snakeHead.xCoordinate, snakeHead.yCoordinate, ConsoleColor.Green));
+                SetSnakeDirection(snakeHead);
+                if (snakeBody.Count - 1 > score)
                 {
-                    body.RemoveAt(0);
+                    snakeBody.RemoveAt(0);
                 }
             }
             SetCursorPosition(WindowWidth / 2 - 9, WindowHeight / 2);
@@ -84,32 +84,32 @@ namespace Snake
                 Main();
             }
         }
-        static void Read(Pixel p)
+        public static void SetSnakeDirection(Pixel snake)
         {
             if (KeyAvailable)
             {
                 ConsoleKeyInfo key = ReadKey(true);
 
-                if (p.xSpeed == 0 && p.ySpeed == -1 || p.xSpeed == 0 && p.ySpeed == 1)
+                if (snake.IsMovingUpOrDown())
                 {
                     if (key.Key == ConsoleKey.RightArrow)
                     {
-                        p.direction(1, 0);
+                        snake.NewDirection(1, 0);
                     }
                     else if (key.Key == ConsoleKey.LeftArrow)
                     {
-                        p.direction(-1, 0);
+                        snake.NewDirection(-1, 0);
                     }
                 }
-                else if (p.xSpeed == 1 && p.ySpeed == 0 || p.xSpeed == -1 && p.ySpeed == 0)
+                else if (snake.IsMovingLeftOrRight())
                 {
                     if (key.Key == ConsoleKey.UpArrow)
                     {
-                        p.direction(0, -1);
+                        snake.NewDirection(0, -1);
                     }
                     else if (key.Key == ConsoleKey.DownArrow)
                     {
-                        p.direction(0, 1);
+                        snake.NewDirection(0, 1);
                     }
                 }
             }
@@ -123,7 +123,7 @@ namespace Snake
                 Write(line);
             }
         }
-        static void DrawBorder()
+        public static void DrawBorder()
         {
             for (int i = 0; i < WindowHeight; i++)
             {

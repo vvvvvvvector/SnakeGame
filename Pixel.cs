@@ -4,32 +4,40 @@ namespace Snake
 {
     class Pixel
     {
-        public int xPos { get; set; }
-        public int yPos { get; set; }
-        public int xSpeed { get; set; } = 1;
-        public int ySpeed { get; set; } = 0;
+        public int xCoordinate { get; set; }
+        public int yCoordinate { get; set; }
+        public int xNewCoordinate { get; set; } = 1;
+        public int yNewCoordinate { get; set; } = 0;
         public ConsoleColor PixelColor { get; set; }
         public Pixel(int x, int y, ConsoleColor color)
         {
-            xPos = x;
-            yPos = y;
+            xCoordinate = x;
+            yCoordinate = y;
             PixelColor = color;
         }
         public void DrawPixel()
         {
-            Console.SetCursorPosition(xPos, yPos);
+            Console.SetCursorPosition(xCoordinate, yCoordinate);
             Console.ForegroundColor = PixelColor;
             Console.Write("*");
         }
         public void Update()
         {
-            xPos += xSpeed;
-            yPos += ySpeed;
+            xCoordinate += xNewCoordinate;
+            yCoordinate += yNewCoordinate;
         }
-        public void direction(int x, int y)
+        public void NewDirection(int x, int y)
         {
-            xSpeed = x;
-            ySpeed = y;
+            xNewCoordinate = x;
+            yNewCoordinate = y;
+        }
+        public bool IsMovingUpOrDown()
+        {
+            return xNewCoordinate == 0 && yNewCoordinate == -1 || xNewCoordinate == 0 && yNewCoordinate == 1;
+        }
+        public bool IsMovingLeftOrRight() 
+        {
+            return xNewCoordinate == 1 && yNewCoordinate == 0 || xNewCoordinate == -1 && yNewCoordinate == 0;
         }
     }
 }
