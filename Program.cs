@@ -13,14 +13,14 @@ namespace Snake
             WindowWidth = 40;
             WindowHeight = 20;
 
-            bool gameover = true;
-            int score = 2;
-            int speed = 180;
-            Random random = new Random();
+            var gameover = true;
+            var score = 2;
+            var speed = 180;
+            var random = new Random();
 
-            Pixel head = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
-            Pixel food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
-            List<Pixel> body = new List<Pixel>();
+            var head = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
+            var food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
+            var body = new List<Pixel>();
 
             DrawBorder();
 
