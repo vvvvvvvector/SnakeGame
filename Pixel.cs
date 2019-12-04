@@ -8,17 +8,17 @@ namespace Snake
         public int yCoordinate { get; set; }
         public int xNewCoordinate { get; set; } = 1;
         public int yNewCoordinate { get; set; } = 0;
-        public ConsoleColor PixelColor { get; set; }
-        public Pixel(int xPosition, int yPosition, ConsoleColor color)
+        public ConsoleColor pixelColor { get; set; }
+        public Pixel(int xCoordinate, int yCoordinate, ConsoleColor pixelColor)
         {
-            xCoordinate = xPosition;
-            yCoordinate = yPosition;
-            PixelColor = color;
+            this.xCoordinate = xCoordinate;
+            this.yCoordinate = yCoordinate;
+            this.pixelColor = pixelColor;
         }
         public void DrawPixel()
         {
             Console.SetCursorPosition(xCoordinate, yCoordinate);
-            Console.ForegroundColor = PixelColor;
+            Console.ForegroundColor = pixelColor;
             Console.Write("*");
         }
         public void UpdatePosition()
