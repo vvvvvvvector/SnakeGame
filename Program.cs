@@ -15,7 +15,7 @@ namespace Snake
 
             var gameover = true;
             var score = 2;
-            var speed = 180;
+            var snakeSpeed = 200;
             var random = new Random();
 
             var snakeHead = new Pixel(WindowWidth / 2, WindowHeight / 2, ConsoleColor.DarkRed);
@@ -34,7 +34,7 @@ namespace Snake
                 {
                     if (score % 4 == 0)
                     {
-                        speed -= 15;
+                        snakeSpeed -= 15;
                     }
                     score++;
                     food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
@@ -52,17 +52,9 @@ namespace Snake
                 {
                     break;
                 }
-                snakeHead.Update();
-                DateTime t1 = DateTime.Now;
-                while (true)
-                {
-                    DateTime t2 = DateTime.Now;
-                    if (t2.Subtract(t1).TotalMilliseconds > speed)
-                    {
-                        break;
-                    }
-                }
-                ClearConsole();
+                snakeHead.UpdatePosition();
+                SpeedControl(snakeSpeed);
+                ClearGameField();
                 snakeHead.DrawPixel();
                 food.DrawPixel();
                 snakeBody.Add(new Pixel(snakeHead.xCoordinate, snakeHead.yCoordinate, ConsoleColor.Green));
@@ -114,7 +106,7 @@ namespace Snake
                 }
             }
         }
-        public static void ClearConsole()
+        public static void ClearGameField()
         {
             var line = string.Join("", new byte[WindowWidth - 2].Select(b => " ").ToArray());
             for (int i = 1; i < WindowHeight - 1; i++)
@@ -140,6 +132,18 @@ namespace Snake
                 Write("1");
                 SetCursorPosition(i, WindowHeight - 1);
                 Write("1");
+            }
+        }
+        public static void SpeedControl(int speedValue) 
+        {
+            DateTime t1 = DateTime.Now;
+            while (true)
+            {
+                DateTime t2 = DateTime.Now;
+                if (t2.Subtract(t1).TotalMilliseconds > speedValue)
+                {
+                    break;
+                }
             }
         }
     }

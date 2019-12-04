@@ -21,7 +21,7 @@ namespace Snake
             Console.ForegroundColor = PixelColor;
             Console.Write("*");
         }
-        public void Update()
+        public void UpdatePosition()
         {
             xCoordinate += xNewCoordinate;
             yCoordinate += yNewCoordinate;
