@@ -9,10 +9,10 @@ namespace Snake
         public int xNewCoordinate { get; set; } = 1;
         public int yNewCoordinate { get; set; } = 0;
         public ConsoleColor PixelColor { get; set; }
-        public Pixel(int x, int y, ConsoleColor color)
+        public Pixel(int xPosition, int yPosition, ConsoleColor color)
         {
-            xCoordinate = x;
-            yCoordinate = y;
+            xCoordinate = xPosition;
+            yCoordinate = yPosition;
             PixelColor = color;
         }
         public void DrawPixel()

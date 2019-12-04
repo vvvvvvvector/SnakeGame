@@ -70,8 +70,8 @@ namespace Snake
             Write($"Press R button to restart game");
             SetCursorPosition(WindowWidth / 2 - 14, WindowHeight / 2 + 2);
             Write($"or press another button to quit");
-            ConsoleKeyInfo key = ReadKey(true);
-            if (key.Key == ConsoleKey.R)
+            ConsoleKeyInfo pressedKey = ReadKey(true);
+            if (pressedKey.Key == ConsoleKey.R)
             {
                 Main();
             }
@@ -80,26 +80,26 @@ namespace Snake
         {
             if (KeyAvailable)
             {
-                ConsoleKeyInfo key = ReadKey(true);
+                ConsoleKeyInfo pressedKey = ReadKey(true);
 
                 if (snake.IsMovingUpOrDown())
                 {
-                    if (key.Key == ConsoleKey.RightArrow)
+                    if (pressedKey.Key == ConsoleKey.RightArrow)
                     {
                         snake.NewDirection(1, 0);
                     }
-                    else if (key.Key == ConsoleKey.LeftArrow)
+                    else if (pressedKey.Key == ConsoleKey.LeftArrow)
                     {
                         snake.NewDirection(-1, 0);
                     }
                 }
                 else if (snake.IsMovingLeftOrRight())
                 {
-                    if (key.Key == ConsoleKey.UpArrow)
+                    if (pressedKey.Key == ConsoleKey.UpArrow)
                     {
                         snake.NewDirection(0, -1);
                     }
-                    else if (key.Key == ConsoleKey.DownArrow)
+                    else if (pressedKey.Key == ConsoleKey.DownArrow)
                     {
                         snake.NewDirection(0, 1);
                     }
