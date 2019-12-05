@@ -39,15 +39,6 @@ namespace Snake
                     score++;
                     food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
                 }
-
-                for (int i = 0; i < snakeBody.Count - 1; i++)
-                {
-                    snakeBody[i].DrawPixel();
-                    if (snakeHead.xCoordinate == snakeBody[i].xCoordinate && snakeHead.yCoordinate == snakeBody[i].yCoordinate)
-                    {
-                        gameover = false;
-                    }
-                }
                 if (gameover == false)
                 {
                     break;
@@ -59,10 +50,6 @@ namespace Snake
                 food.DrawPixel();
                 snakeBody.Add(new Pixel(snakeHead.xCoordinate, snakeHead.yCoordinate, ConsoleColor.Green));
                 SetSnakeDirection(snakeHead);
-                if (snakeBody.Count - 1 > score)
-                {
-                    snakeBody.RemoveAt(0);
-                }
             }
             SetCursorPosition(WindowWidth / 2 - 9, WindowHeight / 2);
             Write($"Game over, score: {score - 2}");
