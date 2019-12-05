@@ -39,6 +39,7 @@ namespace Snake
                     score++;
                     food = new Pixel(random.Next(1, WindowWidth - 2), random.Next(1, WindowHeight - 2), ConsoleColor.Cyan);
                 }
+                WriteLine("test");
                 if (gameover == false)
                 {
                     break;
